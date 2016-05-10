@@ -2,8 +2,9 @@
 This is a C program of Chat Server/Client project for CPTR131 Lab 3. It should include the following make commands:
 This projects uses Ruby 2.2.1
 ```
-make
-make run
-make clean
-make test
+SERVER:
+  ruby ./server.rb
+CLIENT:
+  Use telnet to test the server.
+  telnet localhost 2000
 ```
