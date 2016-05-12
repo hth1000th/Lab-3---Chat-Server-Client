@@ -7,6 +7,7 @@ class Server
     connected
   end
 
+# to connect server with each client
   def connected
     loop do
       Thread.start(@server.accept) do |client|
@@ -26,14 +27,17 @@ class Server
     end
   end
 
+# commands executed for client
   def commands(username, client)
     loop do
       command = client.gets.chomp
       other_user = Array.new
       message = Array.new
+      # broadcast message
       if command[0..9] == "broadcast "
         message.push(*command[10..-1])
         broadcast(username, client, message.join(""))
+      # send username message
       elsif command[0..4] == "send "
         command[5..-1].split("").each do |c|
           if c == " "
@@ -45,10 +49,13 @@ class Server
         message.push(*command[5..-1])
         message[0].slice!(0..other_user.length)
         send(username, client, other_user.join(""), message.join(""))
-      elsif command[0..7] == "userlist"
+      # show the userlist for current clients
+      elsif command == "userlist"
         userlist(username, client)
-      elsif command[0..9] == "disconnect"
+      # to disconnect client from server
+      elsif command == "disconnect"
         disconnect(username, client)
+      # if the command from client is incorrect
       else
         client.puts "Wrong input!"
       end
@@ -101,7 +108,15 @@ class Server
   end
 
   def stopping
-
+    server_cmd = gets.chomp
+    if server_cmd == "stopping"
+      puts "this is stopping"
+      @user_list.each do |u, c|
+        @user_list[u].puts "STOPPING"
+        @user_list[u].close
+      end
+      @server.close
+    end
   end
 end
 
