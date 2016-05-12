@@ -95,11 +95,13 @@ class Server
         @user_list[u].puts "DISCONNECTED #{username}"
         puts "RECEIVED"
       end
+      @user_list.delete(username)
     end
     client.close
   end
 
   def stopping
+
   end
 end
 
