@@ -7,4 +7,9 @@ SERVER:
 CLIENT:
   Use telnet to test the server.
   telnet localhost 2000
+  **Commands:
+    -> broadcast <message_line>
+    -> send <username> <message_line>
+    -> userlist
+    -> disconnect
 ```
